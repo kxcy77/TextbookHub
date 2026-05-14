@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern African Campus Color Palette -->
+    <color name="md_theme_primary">#A84200</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#FFDBCC</color>
+    <color name="md_theme_onPrimaryContainer">#3E1100</color>
+    <color name="md_theme_secondary">#005C4B</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#72E8D2</color>
+    <color name="md_theme_onSecondaryContainer">#00211A</color>
+    <color name="md_theme_tertiary">#7A5200</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#FFDE9C</color>
+    <color name="md_theme_onTertiaryContainer">#271800</color>
+    <color name="md_theme_error">#BA1A1A</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_errorContainer">#FFDAD6</color>
+    <color name="md_theme_onErrorContainer">#410002</color>
+    <color name="md_theme_background">#F5F5F5</color>
+    <color name="md_theme_onBackground">#212121</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_onSurface">#424242</color>
+    <color name="md_theme_surfaceVariant">#E0E0E0</color>
+    <color name="md_theme_onSurfaceVariant">#616161</color>
+    <color name="md_theme_outline">#BDBDBD</color>
+    <color name="md_theme_outlineVariant">#E0E0E0</color>
+    <color name="md_theme_scrim">#000000</color>
+    <color name="md_theme_inverseSurface">#303030</color>
+    <color name="md_theme_inverseOnSurface">#F5F5F5</color>
+    <color name="md_theme_inversePrimary">#FFB595</color>
+    <color name="md_theme_surfaceDim">#DCDCDC</color>
+    <color name="md_theme_surfaceBright">#F5F5F5</color>
+    <color name="md_theme_surfaceContainerLowest">#FFFFFF</color>
+    <color name="md_theme_surfaceContainerLow">#F0F0F0</color>
+    <color name="md_theme_surfaceContainer">#EBEBEB</color>
+    <color name="md_theme_surfaceContainerHigh">#E0E0E0</color>
+    <color name="md_theme_surfaceContainerHighest">#D6D6D6</color>
+
+    <!-- Additional Colors for Variants -->
+    <color name="primary_variant">#D46A20</color>
+    <color name="secondary_variant">#008C73</color>
+</resources>
