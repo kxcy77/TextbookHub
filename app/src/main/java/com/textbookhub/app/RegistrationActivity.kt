@@ -3,6 +3,8 @@ package com.textbookhub.app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -13,6 +15,7 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+        setupInstitutionDropdown()
 
         findViewById<MaterialButton>(R.id.btn_complete_registration).setOnClickListener {
             if (validateRegistration()) {
@@ -22,6 +25,19 @@ class RegistrationActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun setupInstitutionDropdown() {
+        val institutions = listOf(
+            "STADIO",
+            "University of Cape Town",
+            "University of Johannesburg",
+            "University of Pretoria",
+            "University of the Witwatersrand",
+            "University of South Africa"
+        )
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, institutions)
+        findViewById<AutoCompleteTextView>(R.id.et_institution).setAdapter(adapter)
     }
 
     private fun validateRegistration(): Boolean {
