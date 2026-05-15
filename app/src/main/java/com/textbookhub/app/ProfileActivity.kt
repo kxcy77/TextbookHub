@@ -2,6 +2,7 @@ package com.textbookhub.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -12,6 +13,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        bindUserProfile()
 
         findViewById<MaterialToolbar>(R.id.toolbar).setNavigationOnClickListener {
             finish()
@@ -33,5 +35,12 @@ class ProfileActivity : AppCompatActivity() {
                 .setPositiveButton("OK", null)
                 .show()
         }
+    }
+
+    private fun bindUserProfile() {
+        val profile = UserProfileStore.load(this)
+        findViewById<TextView>(R.id.tv_user_name).text = profile.fullName
+        findViewById<TextView>(R.id.tv_user_institution).text =
+            "${profile.institution}\n${profile.studentNumber} • ${profile.email}"
     }
 }

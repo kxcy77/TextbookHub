@@ -19,6 +19,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         findViewById<MaterialButton>(R.id.btn_complete_registration).setOnClickListener {
             if (validateRegistration()) {
+                saveUserProfile()
                 val intent = Intent(this, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -38,6 +39,16 @@ class RegistrationActivity : AppCompatActivity() {
         )
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, institutions)
         findViewById<AutoCompleteTextView>(R.id.et_institution).setAdapter(adapter)
+    }
+
+    private fun saveUserProfile() {
+        UserProfileStore.save(
+            context = this,
+            fullName = findViewById<TextInputEditText>(R.id.et_full_name).text?.toString()?.trim().orEmpty(),
+            studentNumber = findViewById<TextInputEditText>(R.id.et_student_number).text?.toString()?.trim().orEmpty(),
+            institution = findViewById<AutoCompleteTextView>(R.id.et_institution).text?.toString()?.trim().orEmpty(),
+            email = findViewById<TextInputEditText>(R.id.et_email).text?.toString()?.trim().orEmpty()
+        )
     }
 
     private fun validateRegistration(): Boolean {
