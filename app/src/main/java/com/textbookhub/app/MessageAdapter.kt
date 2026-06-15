@@ -1,10 +1,9 @@
 package com.textbookhub.app
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.textbookhub.app.databinding.ItemMessagePreviewBinding
 
 class MessageAdapter(
     private val messages: List<MessagePreview>,
@@ -12,8 +11,8 @@ class MessageAdapter(
 ) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message_preview, parent, false)
-        return MessageViewHolder(view)
+        val binding = ItemMessagePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MessageViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
@@ -22,16 +21,15 @@ class MessageAdapter(
 
     override fun getItemCount(): Int = messages.size
 
-    class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val sellerName = itemView.findViewById<TextView>(R.id.tv_seller_name)
-        private val lastMessage = itemView.findViewById<TextView>(R.id.tv_last_message)
-        private val time = itemView.findViewById<TextView>(R.id.tv_message_time)
+    class MessageViewHolder(
+        private val binding: ItemMessagePreviewBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(message: MessagePreview, onMessageClick: (MessagePreview) -> Unit) {
-            sellerName.text = message.sellerName
-            lastMessage.text = message.lastMessage
-            time.text = message.time
-            itemView.setOnClickListener { onMessageClick(message) }
+            binding.tvSellerName.text = message.sellerName
+            binding.tvLastMessage.text = message.lastMessage
+            binding.tvMessageTime.text = message.time
+            binding.root.setOnClickListener { onMessageClick(message) }
         }
     }
 }

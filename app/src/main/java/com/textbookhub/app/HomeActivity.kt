@@ -8,35 +8,77 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
+import com.textbookhub.app.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private val books = listOf(
-        Book("Macroeconomics 101", "Olivier Blanchard", "MADA372", "Good Condition", "R 450", "Jane Doe"),
-        Book("Introduction to Accounting", "D. Berry", "ACC101", "Like New", "R 380", "Thabo M."),
-        Book("Calculus: Early Transcendentals", "James Stewart", "MATH114", "Fair Condition", "R 520", "Aisha K."),
-        Book("Business Management", "S. Erasmus", "BUS100", "Good Condition", "R 300", "Liam N."),
-        Book("Computer Science Basics", "J. Brookshear", "CSC101", "Like New", "R 600", "Mila P.")
+        Book(
+            title = "Macroeconomics 101",
+            author = "Olivier Blanchard",
+            edition = "8th Edition",
+            courseCode = "ECO101",
+            condition = "Good Condition",
+            price = "R 450",
+            sellerName = "Jane Doe",
+            description = "Well-maintained first-year macroeconomics textbook with light cover wear."
+        ),
+        Book(
+            title = "Introduction to Accounting",
+            author = "D. Berry",
+            edition = "2nd Edition",
+            courseCode = "ACC101",
+            condition = "Like New",
+            price = "R 380",
+            sellerName = "Thabo M.",
+            description = "Clean accounting textbook suitable for first-year financial accounting modules."
+        ),
+        Book(
+            title = "Calculus: Early Transcendentals",
+            author = "James Stewart",
+            edition = "9th Edition",
+            courseCode = "MATH114",
+            condition = "Fair Condition",
+            price = "R 520",
+            sellerName = "Aisha K.",
+            description = "Includes calculus examples, practice problems, and marked revision sections."
+        ),
+        Book(
+            title = "Business Management",
+            author = "S. Erasmus",
+            edition = "6th Edition",
+            courseCode = "BUS100",
+            condition = "Good Condition",
+            price = "R 300",
+            sellerName = "Liam N.",
+            description = "Introductory business management textbook for commerce students."
+        ),
+        Book(
+            title = "Computer Science Basics",
+            author = "J. Brookshear",
+            edition = "13th Edition",
+            courseCode = "CSC101",
+            condition = "Like New",
+            price = "R 600",
+            sellerName = "Mila P.",
+            description = "Foundational computer science textbook covering algorithms and data representation."
+        )
     )
 
     private lateinit var bookAdapter: BookAdapter
-    private lateinit var searchInput: EditText
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         createNotificationChannel()
-        searchInput = findViewById(R.id.et_search)
         setupCategories()
         setupBooks()
         setupSearch()
@@ -45,11 +87,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupCategories() {
         val categories = listOf("All", "Accounting", "Economics", "Math", "Business", "Computer Science")
-        val categoryList = findViewById<RecyclerView>(R.id.rv_categories)
-        categoryList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        categoryList.adapter = CategoryAdapter(categories) { category ->
+        binding.rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCategories.adapter = CategoryAdapter(categories) { category ->
             val query = if (category == "All") "" else category
-            searchInput.setText(query)
+            binding.etSearch.setText(query)
             filterBooks(query)
         }
     }
@@ -59,29 +100,28 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, BookDetailActivity::class.java).withBook(it))
         }
 
-        val bookList = findViewById<RecyclerView>(R.id.rv_books)
-        bookList.layoutManager = LinearLayoutManager(this)
-        bookList.adapter = bookAdapter
+        binding.rvBooks.layoutManager = LinearLayoutManager(this)
+        binding.rvBooks.adapter = bookAdapter
     }
 
     private fun setupSearch() {
-        findViewById<MaterialButton>(R.id.btn_sell).setOnClickListener {
+        binding.btnSell.setOnClickListener {
             startActivity(Intent(this, SellActivity::class.java))
         }
-        findViewById<MaterialButton>(R.id.btn_messages).setOnClickListener {
+        binding.btnMessages.setOnClickListener {
             startActivity(Intent(this, MessagesActivity::class.java))
         }
-        findViewById<MaterialButton>(R.id.btn_profile).setOnClickListener {
+        binding.btnProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-        findViewById<MaterialButton>(R.id.btn_search).setOnClickListener {
-            filterBooks(searchInput.text.toString())
+        binding.btnSearch.setOnClickListener {
+            filterBooks(binding.etSearch.text.toString())
         }
 
-        searchInput.setOnEditorActionListener { _, actionId, _ ->
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                filterBooks(searchInput.text.toString())
+                filterBooks(binding.etSearch.text.toString())
                 true
             } else {
                 false
@@ -90,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupNotifications() {
-        findViewById<ImageView>(R.id.iv_notification_bell).setOnClickListener {
+        binding.ivNotificationBell.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -165,10 +205,14 @@ class HomeActivity : AppCompatActivity() {
     private fun Intent.withBook(book: Book): Intent {
         putExtra(BookExtras.TITLE, book.title)
         putExtra(BookExtras.AUTHOR, book.author)
+        putExtra(BookExtras.EDITION, book.edition)
         putExtra(BookExtras.COURSE_CODE, book.courseCode)
         putExtra(BookExtras.CONDITION, book.condition)
         putExtra(BookExtras.PRICE, book.price)
         putExtra(BookExtras.SELLER_NAME, book.sellerName)
+        putExtra(BookExtras.DESCRIPTION, book.description)
+        putExtra(BookExtras.CAMPUS, book.campus)
+        putExtra(BookExtras.IMAGE_RES_ID, book.imageResId)
         return this
     }
 

@@ -1,10 +1,9 @@
 package com.textbookhub.app
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.textbookhub.app.databinding.ItemBookCardBinding
 
 class BookAdapter(
     books: List<Book>,
@@ -13,8 +12,8 @@ class BookAdapter(
     private val items = books.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_book_card, parent, false)
-        return BookViewHolder(view)
+        val binding = ItemBookCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
@@ -29,22 +28,19 @@ class BookAdapter(
         notifyDataSetChanged()
     }
 
-    inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val title = itemView.findViewById<TextView>(R.id.tv_book_title)
-        private val author = itemView.findViewById<TextView>(R.id.tv_book_author)
-        private val courseCode = itemView.findViewById<TextView>(R.id.tv_course_code)
-        private val condition = itemView.findViewById<TextView>(R.id.tv_condition_badge)
-        private val price = itemView.findViewById<TextView>(R.id.tv_book_price)
-        private val sellerName = itemView.findViewById<TextView>(R.id.tv_seller_name)
+    inner class BookViewHolder(
+        private val binding: ItemBookCardBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: Book) {
-            title.text = book.title
-            author.text = book.author
-            courseCode.text = book.courseCode
-            condition.text = book.condition
-            price.text = book.price
-            sellerName.text = "by ${book.sellerName}"
-            itemView.setOnClickListener { onBookClick(book) }
+            binding.tvBookTitle.text = book.title
+            binding.tvBookAuthor.text = "${book.author} - ${book.edition}"
+            binding.tvCourseCode.text = book.courseCode
+            binding.tvConditionBadge.text = book.condition
+            binding.tvBookPrice.text = book.price
+            binding.tvSellerName.text = "by ${book.sellerName}"
+            binding.ivBookThumbnail.setImageResource(book.imageResId)
+            binding.root.setOnClickListener { onBookClick(book) }
         }
     }
 }

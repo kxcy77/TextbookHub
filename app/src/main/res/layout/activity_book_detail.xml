@@ -145,6 +145,7 @@
                                     android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
+                                    android:id="@+id/tv_detail_condition"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Good"
@@ -180,6 +181,7 @@
                                     android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
+                                    android:id="@+id/tv_detail_campus"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="UCT"
@@ -214,6 +216,7 @@
                                     android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
+                                    android:id="@+id/tv_detail_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="R 450"

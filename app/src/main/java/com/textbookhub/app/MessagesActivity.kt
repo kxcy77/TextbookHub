@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.MaterialToolbar
+import com.textbookhub.app.databinding.ActivityMessagesBinding
 
 class MessagesActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMessagesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_messages)
+        binding = ActivityMessagesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        findViewById<MaterialToolbar>(R.id.toolbar).setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             finish()
         }
 
@@ -22,7 +23,7 @@ class MessagesActivity : AppCompatActivity() {
             MessagePreview("Thabo M.", "I can meet near the library today.", "12:15"),
             MessagePreview("Aisha K.", "Would you take R480 for Calculus?", "Yesterday")
         )
-        findViewById<RecyclerView>(R.id.rv_messages).apply {
+        binding.rvMessages.apply {
             layoutManager = LinearLayoutManager(this@MessagesActivity)
             adapter = MessageAdapter(messages) { message ->
                 startActivity(Intent(this@MessagesActivity, MessageThreadActivity::class.java).apply {
