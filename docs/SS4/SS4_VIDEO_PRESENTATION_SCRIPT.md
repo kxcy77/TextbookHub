@@ -1,73 +1,264 @@
 # TextbookHub SS4 Video Presentation Script
 
-Target length: 10 to 15 minutes
+Target time: 10 to 12 minutes  
+Maximum allowed time: 15 minutes
 
-## 1. Introduction
+Tip: Speak slowly. Pause at each line break. It is okay to read this script.
 
-Introduce yourself and the project:
+---
 
-"My name is Kagiso Mmatloa, student number 24301339. My project is TextbookHub, a student textbook marketplace app developed for Mobile Application Development A, MADA372. The purpose of the app is to help higher education students find affordable second-hand textbooks and communicate with sellers."
+## 0:00 - 0:45 | Introduction
 
-Mention the target audience:
+Good day.
 
-"The target users are students who need textbooks at lower prices and students who want to sell textbooks they no longer use."
+My name is Kagiso Mmatloa.
 
-## 2. Development Journey
+My student number is 24301339.
 
-Explain the SS1 to SS4 flow:
+This is my SS4 final presentation for Mobile Application Development A, module code MADA372.
 
-- SS1 focused on the strategy, problem statement, MVP scope, functional requirements, and DevOps plan.
-- SS2 focused on UX/UI design, wireframes, prototype flow, visual style, and user journey.
-- SS3 focused on building the Android app in Kotlin and XML.
-- SS4 finalises the app, improves documentation, checks code quality, and prepares deployment evidence.
+My mobile application is called TextbookHub.
 
-## 3. Technical Overview
+TextbookHub is a student textbook marketplace app.
 
-Show Android Studio and explain:
+The purpose of the app is to help students buy and sell second-hand textbooks in a simple and affordable way.
 
-- Kotlin activities control the screens.
-- XML layouts define the UI.
-- ViewBinding connects Kotlin code to XML views.
-- RecyclerView displays textbook listings and messages.
-- SharedPreferences stores registration/profile information locally.
-- The app does not use a persistent database, so textbook data is handled with Kotlin collections.
+The target users are students in higher education institutions, especially students who need textbooks at lower prices.
 
-## 4. Live App Demo
+---
 
-Recommended demo order:
+## 0:45 - 1:45 | Project Problem and Purpose
 
-1. Launch the app and show the welcome screen.
-2. Open Register and show validation/institution dropdown with STADIO.
-3. Register a user and show that the app moves to Home.
-4. Search for a textbook and show filtered results.
-5. Tap a textbook and show the detail page.
-6. Tap Inquire Now and send a message.
-7. Open Messages and enter a chat thread.
-8. Type and send a reply using the message box at the bottom.
-9. Open Sell Book, upload/select a book photo, and show validation.
-10. Open Profile and show that registration information appears there.
-11. Tap the notification bell and show the notification action.
+The problem I wanted to address is that textbooks can be expensive.
 
-## 5. GitHub and Deployment Evidence
+Many students also struggle to find used textbooks from other students in a trusted and convenient way.
 
-Show the GitHub repository:
+TextbookHub helps with this problem by allowing students to browse textbook listings, search for books, view book details, contact sellers, and list their own books for sale.
+
+The app is designed as a minimum viable product.
+
+This means it focuses on the most important features first.
+
+The app does not use a full online database yet.
+
+Instead, it uses Kotlin data models and local app logic to demonstrate the main textbook marketplace functionality.
+
+---
+
+## 1:45 - 3:00 | SS1 to SS4 Development Journey
+
+This project was developed across four phases.
+
+In SS1, I focused on strategic planning.
+
+This included the problem statement, project scope, user needs, functional requirements, and the first idea of the system architecture.
+
+In SS2, I focused on UX and UI design.
+
+This included the wireframes, prototype screens, sitemap, information architecture, colours, and branding.
+
+In SS3, I built the Android application using Android Studio.
+
+The app was implemented with Kotlin and XML layouts.
+
+In SS4, I refined the app, improved the documentation, checked the rubric requirements, added stronger ViewBinding evidence, and prepared the final project report.
+
+The final app is therefore aligned with SS1, SS2, SS3, and SS4.
+
+---
+
+## 3:00 - 4:15 | Technical Architecture
+
+The app was built in Android Studio.
+
+It uses Kotlin for the application logic.
+
+It uses XML for the user interface layouts.
+
+The app uses Activity screens for the main pages.
+
+These include the welcome screen, registration screen, login screen, home screen, book detail screen, inquiry screen, messages screen, chat screen, sell book screen, and profile screen.
+
+The app also uses RecyclerView to display textbook listings and message previews.
+
+For binding, the app uses ViewBinding.
+
+This connects Kotlin code to XML user interface elements in a safer and cleaner way.
+
+The app also includes a Book data class.
+
+This data class stores textbook information such as title, author, edition, price, description, and image reference.
+
+The app also uses a BookCatalogViewModel to hold and filter the textbook catalogue.
+
+---
+
+## 4:15 - 5:15 | Demo: Welcome, Register, and Login
+
+I will now demonstrate the app.
+
+The app opens on the welcome screen.
+
+From here, the user can register or sign in.
+
+I will open the registration screen.
+
+The registration form asks for the user's full name, student number, institution, email, and password.
+
+The institution dropdown includes STADIO.
+
+The app validates the registration form.
+
+If required information is missing, the app shows an error message.
+
+After registration, the app saves the user's profile details locally.
+
+The login screen also validates the email and password before the user enters the app.
+
+This supports the error handling and input validation requirement.
+
+---
+
+## 5:15 - 6:45 | Demo: Home Screen, Listings, and Search
+
+After signing in, the user goes to the home screen.
+
+The home screen shows the textbook catalogue.
+
+The textbook listings are displayed using RecyclerView.
+
+Each listing shows important information, including the book title, author, edition, course code, condition, price, and seller.
+
+The user can search for textbooks using the search bar.
+
+The search can filter by title, author, edition, course code, condition, and description.
+
+If the user presses search without typing anything, the app shows a Toast message asking the user to enter a search term.
+
+This demonstrates search logic and input validation.
+
+The app also has category chips.
+
+These make it easier to filter the listings.
+
+---
+
+## 6:45 - 8:00 | Demo: Book Details and Inquiry
+
+Next, I will open a textbook listing.
+
+This takes the user to the book detail screen.
+
+The detail screen shows expanded information about the selected textbook.
+
+This includes the book title, author, edition, condition, campus, price, description, and seller name.
+
+The user can tap the save button to save the listing.
+
+The user can also tap Inquire Now.
+
+This opens the inquiry screen.
+
+On the inquiry screen, the user can type a message to the seller.
+
+When the message is sent, the app gives feedback and opens the messages area.
+
+This demonstrates user interaction logic and navigation from Home to Book Details to the interaction screen.
+
+---
+
+## 8:00 - 9:15 | Demo: Messages and Chat
+
+The messages screen shows message previews from sellers.
+
+These messages are also displayed using RecyclerView.
+
+When the user taps a message, the app opens the chat thread.
+
+The chat screen has a text box at the bottom.
+
+The user can type a reply and send it.
+
+If the user tries to send an empty message, the app shows an error.
+
+When a valid message is sent, the new message is added to the chat.
+
+This demonstrates dynamic UI updates, input validation, and user-to-user interaction.
+
+---
+
+## 9:15 - 10:15 | Demo: Sell Book and Profile
+
+The Sell Book screen allows the user to create a textbook listing.
+
+The user can enter the book title, author, price, and condition.
+
+The user can also upload or select a book photo.
+
+The app validates the form before publishing.
+
+If important fields are missing, the app shows errors or Toast messages.
+
+The Profile screen displays the information used during registration.
+
+This includes the user's name, institution, student number, and email address.
+
+The profile page also includes options such as My Listings, Settings, and Help and Support.
+
+---
+
+## 10:15 - 11:15 | GitHub and Deployment Evidence
+
+The project is hosted on GitHub.
+
+The repository link is:
 
 https://github.com/kxcy77/TextbookHub
 
-Mention:
+The project uses meaningful commits to show development progress.
 
-- The repository is structured as an Android Studio project.
-- The project uses meaningful commits.
-- The project has main and development branches.
-- The final project should be pushed after the SS4 updates.
+It also has a main branch and a development branch.
 
-For Amazon Appstore:
+For deployment, the app builds successfully as an APK.
 
-- Show the prepared APK/build output or the Amazon Developer Console if available.
-- Mention that final public deployment requires a signed APK/AAB, app listing, screenshots, and developer account submission.
+The debug APK is available from the Android Studio build output.
 
-## 6. Closing
+For Amazon Appstore submission, the final release version would need to be signed and uploaded through the Amazon Developer Console with screenshots and an app description.
 
-End with:
+---
 
-"TextbookHub meets the MVP objective by allowing students to register, browse textbooks, search listings, view details, contact sellers, reply in messages, upload listing photos, and manage profile information. The project follows the SS1 strategy, SS2 design, SS3 implementation, and SS4 finalisation requirements."
+## 11:15 - 12:00 | Conclusion
+
+In conclusion, TextbookHub meets the main MVP requirements for a student textbook marketplace.
+
+It allows students to register, sign in, browse textbooks, search listings, view book details, contact sellers, reply to messages, upload book photos, and view profile information.
+
+The app uses Kotlin, XML layouts, ViewBinding, RecyclerView, a ViewModel, input validation, and structured navigation.
+
+The final project is aligned with the planning from SS1, the design from SS2, the development from SS3, and the final SS4 requirements.
+
+Thank you.
+
+---
+
+## Emergency Short Version
+
+Use this if you are running out of time.
+
+TextbookHub is my Android textbook marketplace app for students.
+
+It helps students find affordable second-hand textbooks and contact sellers.
+
+The app was planned in SS1, designed in SS2, developed in SS3, and finalised in SS4.
+
+It uses Kotlin, XML layouts, ViewBinding, RecyclerView, and a BookCatalogViewModel.
+
+The app includes registration, login, textbook browsing, search, book details, seller inquiry, messages, chat replies, sell book, profile, and notifications.
+
+It validates user input and shows error messages or Toast feedback.
+
+The project is hosted on GitHub at https://github.com/kxcy77/TextbookHub.
+
+The app builds successfully as an APK.
+
+This final version meets the MVP requirements for the SS4 Textbook App project.
