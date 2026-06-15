@@ -2,14 +2,18 @@ package com.textbookhub.app
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.textbookhub.app.databinding.ItemBookCardBinding
 
 class BookAdapter(
     books: List<Book>,
     private val onBookClick: (Book) -> Unit
-) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
-    private val items = books.toMutableList()
+) : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffCallback) {
+    init {
+        submitList(books)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,15 +21,7 @@ class BookAdapter(
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    override fun getItemCount(): Int = items.size
-
-    fun submitList(books: List<Book>) {
-        items.clear()
-        items.addAll(books)
-        notifyDataSetChanged()
+        holder.bind(getItem(position))
     }
 
     inner class BookViewHolder(
@@ -41,6 +37,16 @@ class BookAdapter(
             binding.tvSellerName.text = "by ${book.sellerName}"
             binding.ivBookThumbnail.setImageResource(book.imageResId)
             binding.root.setOnClickListener { onBookClick(book) }
+        }
+    }
+
+    private object BookDiffCallback : DiffUtil.ItemCallback<Book>() {
+        override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
+            return oldItem.title == newItem.title && oldItem.author == newItem.author
+        }
+
+        override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
+            return oldItem == newItem
         }
     }
 }
