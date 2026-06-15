@@ -4,22 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.appbar.MaterialToolbar
 
 class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        bindUserProfile()
 
         findViewById<MaterialToolbar>(R.id.toolbar).setNavigationOnClickListener {
             finish()
         }
         findViewById<MaterialCardView>(R.id.cv_my_listings).setOnClickListener {
-            startActivity(Intent(this, SellActivity::class.java))
+            startActivity(Intent(this, MyListingsActivity::class.java))
         }
         findViewById<MaterialCardView>(R.id.cv_settings).setOnClickListener {
             MaterialAlertDialogBuilder(this)
@@ -37,10 +36,17 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        bindUserProfile()
+    }
+
     private fun bindUserProfile() {
         val profile = UserProfileStore.load(this)
+        val activeListings = BookListingStore.count(this)
         findViewById<TextView>(R.id.tv_user_name).text = profile.fullName
         findViewById<TextView>(R.id.tv_user_institution).text =
-            "${profile.institution}\n${profile.studentNumber} • ${profile.email}"
+            "${profile.institution}\n${profile.studentNumber} - ${profile.email}"
+        findViewById<TextView>(R.id.tv_active_listings).text = "$activeListings Active"
     }
 }

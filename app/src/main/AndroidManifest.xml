@@ -40,6 +40,9 @@
             android:name=".SellActivity"
             android:exported="false" />
         <activity
+            android:name=".MyListingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".InquiryActivity"
             android:exported="false" />
         <activity

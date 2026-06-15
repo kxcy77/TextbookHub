@@ -45,12 +45,19 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupBooks() {
-        bookAdapter = BookAdapter(catalogViewModel.books) {
+        bookAdapter = BookAdapter(allBooks()) {
             startActivity(Intent(this, BookDetailActivity::class.java).withBook(it))
         }
 
         binding.rvBooks.layoutManager = LinearLayoutManager(this)
         binding.rvBooks.adapter = bookAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::bookAdapter.isInitialized) {
+            filterBooks(binding.etSearch.text?.toString().orEmpty(), showToast = false)
+        }
     }
 
     private fun setupSearch() {
@@ -142,18 +149,29 @@ class HomeActivity : AppCompatActivity() {
         filterBooks(query)
     }
 
-    private fun filterBooks(query: String) {
+    private fun filterBooks(query: String, showToast: Boolean = true) {
         val trimmedQuery = query.trim()
-        val filteredBooks = catalogViewModel.search(trimmedQuery)
+        val books = allBooks()
+        val filteredBooks = if (trimmedQuery.isEmpty()) {
+            books
+        } else {
+            books.filter { it.matches(trimmedQuery) }
+        }
 
         bookAdapter.submitList(filteredBooks)
 
-        val message = if (filteredBooks.isEmpty()) {
-            "No books found"
-        } else {
-            "${filteredBooks.size} book${if (filteredBooks.size == 1) "" else "s"} found"
+        if (showToast) {
+            val message = if (filteredBooks.isEmpty()) {
+                "No books found"
+            } else {
+                "${filteredBooks.size} book${if (filteredBooks.size == 1) "" else "s"} found"
+            }
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun allBooks(): List<Book> {
+        return BookListingStore.load(this) + catalogViewModel.books
     }
 
     private fun Intent.withBook(book: Book): Intent {

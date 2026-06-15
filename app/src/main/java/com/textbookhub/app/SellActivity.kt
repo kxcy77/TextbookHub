@@ -33,6 +33,7 @@ class SellActivity : AppCompatActivity() {
         }
         findViewById<MaterialButton>(R.id.btn_publish_listing).setOnClickListener {
             if (validateListing()) {
+                BookListingStore.save(this, createListing())
                 Toast.makeText(this, "Listing published", Toast.LENGTH_SHORT).show()
                 finish()
             }
@@ -80,6 +81,29 @@ class SellActivity : AppCompatActivity() {
         }
 
         return valid
+    }
+
+    private fun createListing(): Book {
+        val title = findViewById<TextInputEditText>(R.id.et_book_title).text?.toString()?.trim().orEmpty()
+        val author = findViewById<TextInputEditText>(R.id.et_author_name).text?.toString()?.trim().orEmpty()
+        val isbn = findViewById<TextInputEditText>(R.id.et_isbn).text?.toString()?.trim().orEmpty()
+        val price = findViewById<TextInputEditText>(R.id.et_asking_price).text?.toString()?.trim().orEmpty()
+        val selectedCondition = findViewById<MaterialButton>(
+            findViewById<MaterialButtonToggleGroup>(R.id.toggle_condition).checkedButtonId
+        ).text.toString()
+        val profile = UserProfileStore.load(this)
+
+        return Book(
+            title = title,
+            author = author,
+            edition = "Student Listing",
+            courseCode = if (isbn.isBlank()) "MY BOOK" else isbn,
+            condition = selectedCondition,
+            price = "R $price",
+            sellerName = profile.fullName,
+            description = "Active textbook listing uploaded by ${profile.fullName}. Contact the seller for edition details and collection arrangements.",
+            campus = profile.institution
+        )
     }
 
     companion object {
